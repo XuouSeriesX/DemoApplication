@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Package Manager</title>
+</head>
+<body>
+    <h1>Package Manager</h1>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    <h2>Search</h2>
+    <form th:action="@{/search}" method="get">
+        <div>
+            <label for="search">Search by:</label>
+            <select id="search" name="search">
+                <option value="package_name">Package Name</option>
+                <option value="price_per_unit">Price per Unit</option>
+                <option value="create_date">Create Date</option>
+                <option value="all">All</option>
+            </select>
+            <input type="text" id="searchValue" name="searchValue"/>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+    <h2>Packages</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Package Name</th>
+                <th>Price per Unit</th>
+                <th>Create Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="package : ${packages}">
+                <td th:text="${package.id}"></td>
+                <td th:text="${package.packageName}"></td>
+                <td th:text="${package.pricePerUnit}"></td>
+                <td th:text="${package.createDate}"></td>
+                <td>
+                    <a th:href="@{/update/{id}(id=${package.id})}">Update</a>
+                    <a th:href="@{/delete/{id}(id=${package.id})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
